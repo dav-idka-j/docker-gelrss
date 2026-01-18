@@ -1,0 +1,6 @@
+{
+  "ARTIST_NAME": "Artist Name",
+  "GELBOORU_TAG": "artist_tag_on_gelbooru",
+  "ICON_URL": "https://example.com/artist_icon.png",
+  "FEED_TITLE": "Posts of Artist Name from Gelbooru"
+}

@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  gelrss:
+    build: .
+    container_name: gelrss
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "24454:24454"
+    volumes:
+      - ./configs:/home/node/app/configs
+      - gelrss-cache:/home/node/app/cache
+
+volumes:
+  gelrss-cache:

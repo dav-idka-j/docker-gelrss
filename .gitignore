@@ -1,0 +1,21 @@
+# Environment
+.env
+
+# Configuration files
+configs/*
+!configs/artist.json.example
+
+# Cache directory
+cache/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+*.pid
+*.seed
+*.patch
+.npm/
+.node_repl_history

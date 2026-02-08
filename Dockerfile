@@ -3,7 +3,7 @@ FROM node:18-alpine AS build
 
 WORKDIR /app
 RUN apk add --no-cache git && \
-    git clone https://github.com/dav-idka-j/Gelrss.git -b feature/persist-cache . && \
+    git clone https://github.com/dav-idka-j/Gelrss.git . && \
     apk del git
 
 RUN npm install --omit=dev && npm cache clean --force

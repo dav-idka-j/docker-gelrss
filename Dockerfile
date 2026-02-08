@@ -1,20 +1,18 @@
 # Build
 FROM node:18-alpine AS build
 
-RUN apk add --no-cache git
-
 WORKDIR /app
-RUN git clone https://github.com/dav-idka-j/Gelrss.git -b feature/persist-cache .
+RUN apk add --no-cache git && \
+    git clone https://github.com/dav-idka-j/Gelrss.git -b feature/persist-cache . && \
+    apk del git
 
-RUN npm install --omit=dev
+RUN npm install --omit=dev && npm cache clean --force
 
 # Runtime
 FROM node:18-alpine
 
-# Set working directory
 WORKDIR /home/node/app
 
-# Copy application files
 COPY --from=build /app .
 
 # Create configs and data directory and set ownership

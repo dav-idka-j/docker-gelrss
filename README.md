@@ -1,11 +1,11 @@
 # Gelrss Docker
 
-This project provides a way to run [Gelrss](https://github.com/Bakalhau/Gelrss) using Docker and Docker Compose.
+This project provides a way to run [Gelrss](https://github.com/dav-idka-j/Gelrss) using Docker and Docker Compose.
 
 ## Prerequisites
 
-- [Docker](https://docs.docker.com/get-docker/)
-- [Docker Compose](https://docs.docker.com/compose/install/)
+- [Docker](https://docs.docker.com/get-docker/) or [podman](https://podman.io/)
+- [Docker Compose](https://docs.docker.com/compose/install/) or [podman compose](https://docs.podman.io/en/latest/markdown/podman-compose.1.html)
 
 ## Quick Start
 
@@ -23,13 +23,23 @@ This project provides a way to run [Gelrss](https://github.com/Bakalhau/Gelrss) 
     cp .env.example .env
     ```
 
-    Now, edit the `.env` file with a text editor. See [Gelrss](https://github.com/Bakalhau/Gelrss/blob/main/README.md) for details.
+    Now, edit the `.env` file with a text editor. See [Gelrss](https://github.com/dav-idka-j/Gelrss/blob/main/README.md) for details.
 
 3.  **Add Artist Feeds:**
 
     Feed configurations are stored as `.json` files inside the `configs/` directory. An example is provided in `configs/artist.json.example`.
 
-    To add a new feed, see [Gelrss](https://github.com/Bakalhau/Gelrss/blob/main/README.md) for details.
+    To add a new feed, see [Gelrss](https://github.com/dav-idka-j/Gelrss/blob/main/README.md) for details.
+
+4.  **Set Permissions for podman:**
+
+    The application requires write access to the `data/` directory to store its database. The `gelrss` service runs as the `node` user (UID 1000) inside the container. To grant this user appropriate write access to the host's `data/` directory, you can change its ownership via unshare:
+
+    ```bash
+    podman unshare chown 1000:1000 -R data/
+    ```
+
+    This command changes the owner and group of the `data/` directory to UID 1000 and GID 1000, matching the `node` user inside the container.
 
 ## Usage
 

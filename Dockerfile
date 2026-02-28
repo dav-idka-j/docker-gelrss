@@ -1,26 +1,22 @@
 # Build
 FROM node:18-alpine AS build
 
-RUN apk add --no-cache git
-
 WORKDIR /app
-RUN git clone https://github.com/Bakalhau/Gelrss.git .
+RUN apk add --no-cache git && \
+    git clone https://github.com/dav-idka-j/Gelrss.git . && \
+    apk del git
 
-RUN npm install --production
+RUN npm install --omit=dev && npm cache clean --force
 
 # Runtime
 FROM node:18-alpine
 
-# Set working directory
 WORKDIR /home/node/app
 
-# Copy application files
-COPY --from=build /app/package.json /app/package-lock.json* /app/server.js ./
-COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app .
 
-# Create configs and cache directory
-RUN mkdir -p configs cache && chown -R node:node .
-
+# Create configs and data directory and set ownership
+RUN mkdir -p configs && mkdir -p data && chown node:node .
 USER node
 
 EXPOSE 24454
